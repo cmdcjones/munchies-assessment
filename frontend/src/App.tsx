@@ -110,11 +110,11 @@ function App() {
     time: DeliveryTime,
   ): Restaurant[] => {
     return restaurants.filter((restaurant) => {
-      if (!restaurant.delivery_time_minutes) {
-        return true;
+      if (!restaurant.is_open) {
+        return false;
       }
 
-      if (!restaurant.is_open) {
+      if (!restaurant.delivery_time_minutes) {
         return false;
       }
 
@@ -124,9 +124,9 @@ function App() {
         case "0-10":
           return deliveryMinutes <= 10;
         case "10-30":
-          return deliveryMinutes > 10 && deliveryMinutes <= 30;
+          return deliveryMinutes >= 10 && deliveryMinutes <= 30;
         case "30-60":
-          return deliveryMinutes > 30 && deliveryMinutes <= 60;
+          return deliveryMinutes >= 30 && deliveryMinutes <= 60;
         case "60+":
           return deliveryMinutes >= 60;
         default:
